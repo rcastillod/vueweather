@@ -1,18 +1,28 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <section class="home">
+    <weather-wrapper></weather-wrapper>
+  </section>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import WeatherWrapper from '@/components/weather/WeatherWrapper.vue'
 
 export default {
-  name: 'HomeView',
+  name: 'home-view',
   components: {
-    HelloWorld
-  }
+    'weather-wrapper': WeatherWrapper
+  },
 }
 </script>
+
+<style lang="scss">
+.home {
+  background-image: url('../assets/images/main-bg.jpg');
+  background-size: cover;
+  background-position: center;
+  display: grid;
+  height: 100vh;
+  place-items: center;
+}
+</style>
+
