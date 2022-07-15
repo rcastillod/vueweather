@@ -1,7 +1,7 @@
 <template>
     <div class="weather-wrapper">
         <video class="weather-video" autoplay muted loop id="myVideo">
-          <source src="../../assets/videos/rain.mp4" type="video/mp4">
+            <source src="../../assets/videos/rain.mp4" type="video/mp4">
         </video>
         <div class="bg-wrapper">
             <div class="cardinales text-caption">N</div>
@@ -21,7 +21,6 @@ import WeatherData from './WeatherData.vue'
 
 export default {
     name: 'weather-wrapper',
-    // props: {},
     data: function(){
         return {
             iconName: null
@@ -31,28 +30,26 @@ export default {
         ...mapState(['weatherData'])
     },
     methods: {},
-    // watch: {},
     components: {
         'weather-data': WeatherData
-    },
-    // mixins: [],
-    // filters: {},
-    // -- Lifecycle Methods
-    // -- End Lifecycle Methods
+    }
 }
 </script>
 
 <style scoped lang="scss">
 .weather-wrapper {
-    //background-image: url('../../assets/images/weather-wrapper-bg.jpg');
     background-size: cover;
     border-radius: 50%;
     color: #ffffff;
-    height: 25rem;
-    width: 25rem;
+    height: 18.75rem;
+    width: 18.75rem;
     overflow: hidden;
     padding: .5rem;
     position: relative;
+    @media ( min-width: 410px ) {
+        height: 25rem;
+        width: 25rem;
+    }
     .weather-video {
         width: 100%;
         height: 100%;

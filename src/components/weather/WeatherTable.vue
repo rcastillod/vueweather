@@ -2,13 +2,15 @@
     <v-data-table
     :headers="weatherHeaders"
     :items="weatherDetail"
-    :items-per-page="1"
     class="elevation-1"
+    dark
+    :hide-default-footer="true"
+    :disable-sort="true"
     ></v-data-table>
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
 export default {
     name: 'weather-table',
@@ -25,35 +27,26 @@ export default {
                 { text: 'Temperatura Máxima', value: "temp_max" },
                 { text: 'Temperatura Minima', value: "temp_min" }
             ],
-            weatherDetail: []
+            weatherDetailTable: []
         }
     },
     computed: {
-        ...mapState(['apiData'])
+        ...mapState(['weatherDetail', 'loader', 'location'])
     },
     methods: {
+        ...mapActions(['getWeatherByCoords']),
         getLocation() {
-            this.loader = true
+            this.$store.state.loader = true
             navigator.geolocation.getCurrentPosition( 
                 position => {
-                    this.apiData.location.lat = position.coords.latitude
-                    this.apiData.location.long = position.coords.longitude
-                    this.getWeatherDetail()
+                    this.location.lat = position.coords.latitude
+                    this.location.long = position.coords.longitude
+                    this.getWeatherByCoords()
                 })
         },
-        async getWeatherDetail() {
-            try {
-                let response = await fetch(`${this.apiData.apiUrl}?lat=${this.apiData.location.lat}&lon=${this.apiData.location.long}&appid=${this.apiData.apiKey}&units=metric`)
-                if (!response.ok) throw ('Ocurrió un error al conectarse con la api')
-                let data = await response.json()
-                let { main } = data
-                this.loader = false
-                this.weatherDetail.push(main)
-            }
-            catch(error) {
-                console.log(error)
-            }
-        },
+        addDetail() {
+            this.weatherDetailTable = this.weatherDetail
+        }
     },
     // watch: {},
     // components: {},
@@ -61,12 +54,15 @@ export default {
     // filters: {},
     // -- Lifecycle Methods
     created() {
-        //this.getLocation()
+        this.getWeatherByCoords()
+        this.addDetail()
     }
     // -- End Lifecycle Methods
 }
 </script>
 
-<style scoped>
-    
+<style scoped lang="scss">
+    .v-data-table {
+        background-color: rgba(#14213D, .7) !important;
+    }
 </style>

@@ -3,8 +3,7 @@
         <v-container>
             <v-row>
                 <v-col
-                cols="6"
-                offset="3">
+                cols="12">
                     <weather-table></weather-table>
                 </v-col>
             </v-row>

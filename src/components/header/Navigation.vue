@@ -7,13 +7,9 @@
             flat
             >
             <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-
             <v-toolbar-title @click="$router.push('/')">Cloudapp</v-toolbar-title>
-
             <v-spacer></v-spacer>
-            <v-btn icon>
-                <v-icon>mdi-magnify</v-icon>
-            </v-btn>
+            <about-dialog></about-dialog>
         </v-app-bar>
         <v-navigation-drawer 
         v-model="drawer" 
@@ -41,6 +37,8 @@
 </template>
 
 <script>
+import AboutDialog from '@/components/AboutDialog.vue'
+
 export default {
     name: 'navigation-menu',
     data: function(){
@@ -48,6 +46,9 @@ export default {
             drawer: false,
             group: null,
         }
+    },
+    components: {
+        'about-dialog': AboutDialog
     },
     watch: {
         group () {

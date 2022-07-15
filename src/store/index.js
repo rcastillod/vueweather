@@ -6,6 +6,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     weatherData: {},
+    weatherDetail: [],
     loader: true,
     location: {
       lat: -33.6911475,
@@ -19,6 +20,9 @@ export default new Vuex.Store({
   mutations: {
     ADD_DATA(state, data) {
       state.weatherData = data
+    },
+    ADD_DATA_DETAIL(state, dataDetail) {
+      state.weatherDetail.push(dataDetail)
     }
   },
   actions: {
@@ -27,8 +31,10 @@ export default new Vuex.Store({
         let response = await fetch(`${this.state.apiUrl}?lat=${this.state.location.lat}&lon=${this.state.location.long}&appid=${this.state.apiKey}&units=metric`)
         if (!response.ok) throw ('Ocurrió un error al conectarse con la api')
         let data = await response.json()
+        let { main } = data
         this.state.loader = false
         commit('ADD_DATA', data)
+        commit('ADD_DATA_DETAIL', main)
       }
       catch (error) {
         console.log(error)

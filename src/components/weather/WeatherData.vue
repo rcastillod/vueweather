@@ -7,8 +7,8 @@
     ></v-progress-circular>
     <div class="data-grid" v-else>
         <div class="current-temperature">
-            <div class="text-h2 font-weight-medium">{{ roundTemp }}<span>°C</span></div>
-            <div class="text-h6 font-weight-light">{{ weatherData.name }}</div>
+            <div class="text-h3 text-sm-h2 font-weight-medium">{{ roundTemp }}<span>°C</span></div>
+            <div class="text-subtitle-1 text-sm-h6 font-weight-light">{{ weatherData.name }}</div>
         </div>
         <div class="min-temperature">
             <div class="d-flex flex-column">
@@ -22,7 +22,7 @@
             </div>
         </div>
         <div class="icon-temperature">
-            <img width="90" :src="require(`../../assets/images/weather-icons/${weatherData.weather[0].icon}.png`)" alt="Weather Icon">
+            <img :src="require(`../../assets/images/weather-icons/${weatherData.weather[0].icon}.png`)" alt="Weather Icon">
         </div>
         <div class="max-temperature">
             <div class="d-flex flex-column">
@@ -48,7 +48,6 @@ import { mapActions, mapState } from 'vuex'
 
 export default {
     name: 'weather-data',
-    // props: {},
     data: function(){
         return {
             
@@ -78,15 +77,9 @@ export default {
                 })
         },
     },
-    // watch: {},
-    // components: {},
-    // mixins: [],
-    // filters: {},
-    // -- Lifecycle Methods
     created() {
         this.getWeatherByCoords()
     }
-    // -- End Lifecycle Methods
 }
 </script>
 
@@ -118,6 +111,12 @@ export default {
 .icon-temperature {
     grid-column: 2;
     grid-row: 2;
+    img {
+        width: 75px;
+        @media ( min-width: 600px ) {
+            width: 90px;
+        }
+    }
 }
 .max-temperature {
     grid-column: 3;
