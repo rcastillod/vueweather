@@ -7,7 +7,7 @@
     ></v-progress-circular>
     <div class="data-grid" v-else>
         <div class="current-temperature">
-            <div class="text-h2 font-weight-medium">{{ Math.floor(weatherData.main.temp) }}<span>°C</span></div>
+            <div class="text-h2 font-weight-medium">{{ roundTemp }}<span>°C</span></div>
             <div class="text-h6 font-weight-light">{{ weatherData.name }}</div>
         </div>
         <div class="min-temperature">
@@ -17,12 +17,12 @@
                     <v-icon
                         color="white"
                         class="text-caption mr-1">mdi-thermometer-minus</v-icon>
-                    <span class="text-caption">{{weatherData.main.temp_min}}°</span>
+                    <span class="text-caption">{{ roundTempMin }}°</span>
                 </div> 
             </div>
         </div>
         <div class="icon-temperature">
-            <img width="90" :src="require(`../../assets/images/weather/${weatherData.weather[0].icon}.png`)" alt="Weather Icon">
+            <img width="90" :src="require(`../../assets/images/weather-icons/${weatherData.weather[0].icon}.png`)" alt="Weather Icon">
         </div>
         <div class="max-temperature">
             <div class="d-flex flex-column">
@@ -31,37 +31,45 @@
                     <v-icon
                         color="white"
                         class="text-caption mr-1">mdi-thermometer-plus</v-icon>
-                    <span class="text-caption">{{weatherData.main.temp_max}}°</span>
+                    <span class="text-caption">{{ roundTempMax }}°</span>
                 </div> 
             </div>
         </div>
         <div class="get-location" @click="getLocation()">
             <v-icon
                 color="white">mdi-crosshairs</v-icon>
-            <div class="text-caption font-weight-black">Localización Actual</div>
+            <div class="text-caption font-weight-black text-center">Localización Actual</div>
         </div>
     </div>
 </template>
 
 <script>
+import { mapActions, mapState } from 'vuex'
+
 export default {
     name: 'weather-data',
     // props: {},
     data: function(){
         return {
-            loader: true,
-            weatherData: null,
-            location: {
-                lat: -33.6911475,
-                long: -71.2193256
-            },
-            apiUrl: 'https://api.openweathermap.org/data/2.5/weather',
-            apiKey: 'c2eec385a5f70fd8ddc37e0037683545'
+            
         }
     },
-    // computed: {},
+    computed: {
+        ...mapState(['weatherData', 'loader', 'location']),
+        roundTemp() {
+            return Math.floor(this.weatherData.main.temp)
+        },
+        roundTempMin() {
+            return Math.floor(this.weatherData.main.temp_min)
+        },
+        roundTempMax() {
+            return Math.floor(this.weatherData.main.temp_max)
+        }
+    },
     methods: {
+        ...mapActions(['getWeatherByCoords']),
         getLocation() {
+            this.$store.state.loader = true
             navigator.geolocation.getCurrentPosition( 
                 position => {
                     this.location.lat = position.coords.latitude
@@ -69,18 +77,6 @@ export default {
                     this.getWeatherByCoords()
                 })
         },
-        async getWeatherByCoords() {
-            try {
-                let response = await fetch(`${this.apiUrl}?lat=${this.location.lat}&lon=${this.location.long}&appid=${this.apiKey}&units=metric`)
-                if (!response.ok) throw ('Ocurrió un error al conectarse con la api')
-                let data = await response.json()
-                this.loader = false
-                this.weatherData = data
-            }
-            catch(error) {
-                console.log(error)
-            }
-        }
     },
     // watch: {},
     // components: {},
@@ -88,7 +84,7 @@ export default {
     // filters: {},
     // -- Lifecycle Methods
     created() {
-        this.getLocation()  
+        this.getWeatherByCoords()
     }
     // -- End Lifecycle Methods
 }

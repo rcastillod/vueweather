@@ -2,7 +2,8 @@
   <v-app>
     <navigation-menu></navigation-menu>
     <v-main>
-      <div class="main-wrapper">
+      <div class="main-wrapper" :style="getWeatherImage">
+      <!-- <div class="main-wrapper"> -->
         <router-view/>
       </div>
     </v-main>
@@ -10,6 +11,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import Navigation from '@/components/header/Navigation.vue';
 
 export default {
@@ -19,6 +21,28 @@ export default {
   }),
   components: {
     'navigation-menu': Navigation
+  },
+  computed: {
+    ...mapState(['weatherData', 'loader']),
+    getWeatherImage() {
+      let image = null
+      if ( this.loader == true ) {
+        image = {backgroundImage: `url(${require('@/assets/images/main-bg.jpg')})`}
+      } else {
+        image = {backgroundImage: `url(${require('@/assets/images/weather-images/'+this.weatherData.weather[0].icon+'.jpg')})`}
+      }
+      return image
+    }
   }
 };
 </script>
+<style lang="scss">
+.main-wrapper {
+  background-image: url('./assets/images/main-bg.jpg');
+  background-size: cover;
+  background-position: center;
+  display: grid;
+  height: 100vh;
+  place-items: center;
+}
+</style>

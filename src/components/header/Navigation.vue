@@ -1,34 +1,38 @@
 <template>
     <div class="overflow-hidden" justify="space-between">
-        <v-app-bar 
-            color="transparent" 
+        <v-app-bar
+            color="transparent"
             light 
             absolute
             flat
             >
             <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
 
-            <v-toolbar-title>TiempoApp</v-toolbar-title>
+            <v-toolbar-title @click="$router.push('/')">Cloudapp</v-toolbar-title>
 
             <v-spacer></v-spacer>
             <v-btn icon>
                 <v-icon>mdi-magnify</v-icon>
             </v-btn>
         </v-app-bar>
-        <v-navigation-drawer v-model="drawer" absolute bottom temporary>
-            <v-list nav dense>
-                <v-list-item-group v-model="group" active-class="deep-purple--text text--accent-4">
-                    <v-list-item>
-                        <v-list-item-title>Foo</v-list-item-title>
+        <v-navigation-drawer 
+        v-model="drawer" 
+        src="../../assets/images/drawer-bg.jpg"
+        absolute 
+        bottom 
+        temporary>
+            <v-list  
+            dense>
+                <div class="drawer-title">Cloudapp</div>
+                <v-list-item-group 
+                v-model="group"
+                class="font-weight-bold" 
+                active-class="blue--text text--lighten-5">
+                    <v-list-item to="/">
+                        <v-list-item-title class="text-subtitle-1 font-weight-medium">Home</v-list-item-title>
                     </v-list-item>
-                    <v-list-item>
-                        <v-list-item-title>Bar</v-list-item-title>
-                    </v-list-item>
-                    <v-list-item>
-                        <v-list-item-title>Fizz</v-list-item-title>
-                    </v-list-item>
-                    <v-list-item>
-                        <v-list-item-title>Buzz</v-list-item-title>
+                    <v-list-item to="/detalle">
+                        <v-list-item-title class="text-subtitle-1 font-weight-medium">Detalle</v-list-item-title>
                     </v-list-item>
                 </v-list-item-group>
             </v-list>
@@ -39,7 +43,6 @@
 <script>
 export default {
     name: 'navigation-menu',
-    // props: {},
     data: function(){
         return {
             drawer: false,
@@ -51,17 +54,24 @@ export default {
             this.drawer = false
         },
     },
-    // computed: {},
-    //methods: {}
-    // watch: {},
-    // components: {},
-    // mixins: [],
-    // filters: {},
-    // -- Lifecycle Methods
-    // -- End Lifecycle Methods
 }
 </script>
 
 <style scoped lang="scss">
-
+.v-app-bar {
+    backdrop-filter: blur(5px);
+}
+.v-toolbar__title {
+    cursor: pointer;
+    font-family: 'Josefin Sans', sans-serif;
+    text-transform: uppercase;
+}
+.drawer-title {
+    color: #ffffff;
+    padding: 1rem;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 1.5rem;
+    text-align: center;
+    text-transform: uppercase;
+}
 </style>

@@ -1,8 +1,8 @@
 <template>
     <div class="weather-wrapper">
-        <!-- <video class="weather-video" autoplay muted loop id="myVideo">
-          <source :src="require(``)" type="video/mp4">
-        </video> -->
+        <video class="weather-video" autoplay muted loop id="myVideo">
+          <source src="../../assets/videos/rain.mp4" type="video/mp4">
+        </video>
         <div class="bg-wrapper">
             <div class="cardinales text-caption">N</div>
             <div class="cardinales text-caption">O</div>
@@ -16,16 +16,21 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import WeatherData from './WeatherData.vue'
 
 export default {
     name: 'weather-wrapper',
     // props: {},
     data: function(){
-        return {}
+        return {
+            iconName: null
+        }
     },
-    // computed: {},
-    //methods: {}
+    computed: {
+        ...mapState(['weatherData'])
+    },
+    methods: {},
     // watch: {},
     components: {
         'weather-data': WeatherData
@@ -39,13 +44,25 @@ export default {
 
 <style scoped lang="scss">
 .weather-wrapper {
-    background-image: url('../../assets/images/weather-wrapper-bg.jpg');
+    //background-image: url('../../assets/images/weather-wrapper-bg.jpg');
     background-size: cover;
     border-radius: 50%;
     color: #ffffff;
     height: 25rem;
     width: 25rem;
+    overflow: hidden;
     padding: .5rem;
+    position: relative;
+    .weather-video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+    }
 }
 .bg-wrapper {
     background-color: rgba(#14213D, .7);

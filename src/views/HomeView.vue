@@ -1,5 +1,5 @@
 <template>
-  <section class="home">
+  <section class="home page">
     <weather-wrapper></weather-wrapper>
   </section>
 </template>
@@ -16,13 +16,6 @@ export default {
 </script>
 
 <style lang="scss">
-.home {
-  background-image: url('../assets/images/main-bg.jpg');
-  background-size: cover;
-  background-position: center;
-  display: grid;
-  height: 100vh;
-  place-items: center;
-}
+
 </style>
 
