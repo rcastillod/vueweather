@@ -14,8 +14,7 @@
         <v-navigation-drawer 
         v-model="drawer" 
         src="../../assets/images/drawer-bg.jpg"
-        absolute 
-        bottom 
+        absolute  
         temporary>
             <v-list  
             dense>
