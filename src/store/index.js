@@ -30,9 +30,12 @@ export default new Vuex.Store({
       try {
         let response = await fetch(`${this.state.apiUrl}?lat=${this.state.location.lat}&lon=${this.state.location.long}&appid=${this.state.apiKey}&units=metric`)
         if (!response.ok) throw ('Ocurrió un error al conectarse con la api')
+        
         let data = await response.json()
         let { main } = data
+        
         this.state.loader = false
+        
         commit('ADD_DATA', data)
         commit('ADD_DATA_DETAIL', main)
       }

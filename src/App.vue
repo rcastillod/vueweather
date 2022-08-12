@@ -3,7 +3,6 @@
     <navigation-menu></navigation-menu>
     <v-main>
       <div class="main-wrapper" :style="getWeatherImage">
-      <!-- <div class="main-wrapper"> -->
         <router-view/>
       </div>
     </v-main>
