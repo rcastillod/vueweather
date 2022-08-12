@@ -1,7 +1,7 @@
 <template>
     <div class="weather-wrapper">
         <video class="weather-video" autoplay muted loop id="myVideo">
-            <source src="../../assets/videos/rain.mp4" type="video/mp4">
+            <source :src="getWeatherVideo" type="video/mp4">
         </video>
         <div class="bg-wrapper">
             <div class="cardinales text-caption">N</div>
@@ -27,7 +27,17 @@ export default {
         }
     },
     computed: {
-        ...mapState(['weatherData'])
+        ...mapState(['weatherData', 'loader']),
+        getWeatherVideo() {
+            let videoSrc = null
+            if ( this.loader == true ) {
+                videoSrc = `${require('@/assets/videos/weather-videos/01d.mp4')}`
+            } else {
+                console.log(this.weatherData.weather[0].icon)
+                videoSrc = `${require('@/assets/videos/weather-videos/'+this.weatherData.weather[0].icon+'.mp4')}`
+            }
+            return videoSrc
+        }
     },
     methods: {},
     components: {

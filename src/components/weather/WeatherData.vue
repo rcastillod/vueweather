@@ -22,7 +22,7 @@
             </div>
         </div>
         <div class="icon-temperature">
-            <img :src="require(`../../assets/images/weather-icons/${weatherData.weather[0].icon}.png`)" alt="Weather Icon">
+            <img :src="require(`../../assets/icons/weather-icons/${weatherData.weather[0].icon}.png`)" alt="Weather Icon">
         </div>
         <div class="max-temperature">
             <div class="d-flex flex-column">
