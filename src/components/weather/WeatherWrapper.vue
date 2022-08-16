@@ -1,8 +1,6 @@
 <template>
     <div class="weather-wrapper">
-        <video class="weather-video" autoplay muted loop id="myVideo">
-            <source :src="getWeatherVideo" type="video/mp4">
-        </video>
+        <video class="weather-video" autoplay muted loop id="myVideo" :src="getWeatherVideo"></video>
         <div class="bg-wrapper">
             <div class="cardinales text-caption">N</div>
             <div class="cardinales text-caption">O</div>
@@ -33,7 +31,6 @@ export default {
             if ( this.loader == true ) {
                 videoSrc = `${require('@/assets/videos/weather-videos/01d.mp4')}`
             } else {
-                console.log(this.weatherData.weather[0].icon)
                 videoSrc = `${require('@/assets/videos/weather-videos/'+this.weatherData.weather[0].icon+'.mp4')}`
             }
             return videoSrc
