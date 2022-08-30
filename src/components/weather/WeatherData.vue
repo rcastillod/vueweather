@@ -7,7 +7,7 @@
     ></v-progress-circular>
     <div class="data-grid" v-else>
         <div class="current-temperature">
-            <div class="text-h3 text-sm-h2 font-weight-medium">{{ roundTemp }}<span>°C</span></div>
+            <div class="text-h4 text-sm-h2 font-weight-medium">{{ roundTemp }}<span>°C</span></div>
             <div class="text-subtitle-1 text-sm-h6 font-weight-light">{{ weatherData.name }}</div>
         </div>
         <div class="min-temperature">
@@ -112,9 +112,9 @@ export default {
     grid-column: 2;
     grid-row: 2;
     img {
-        width: 75px;
+        width: 3.75rem;
         @media ( min-width: 600px ) {
-            width: 90px;
+            width: 5.625rem;
         }
     }
 }

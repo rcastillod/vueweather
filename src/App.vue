@@ -3,7 +3,9 @@
     <navigation-menu></navigation-menu>
     <v-main>
       <div class="main-wrapper" :style="getWeatherImage">
-        <router-view/>
+        <v-container class="fill-height justify-sm-center">
+          <router-view/>
+        </v-container>
       </div>
     </v-main>
   </v-app>
@@ -40,8 +42,6 @@ export default {
   background-image: url('./assets/images/main-bg.jpg');
   background-size: cover;
   background-position: center;
-  display: grid;
-  height: 100vh;
-  place-items: center;
+  height: 100%;
 }
 </style>

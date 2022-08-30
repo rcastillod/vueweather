@@ -1,5 +1,5 @@
 <template>
-    <div class="weather-wrapper">
+    <div class="weather-wrapper align-self-center">
         <video class="weather-video" autoplay muted loop id="myVideo" :src="getWeatherVideo"></video>
         <div class="bg-wrapper">
             <div class="cardinales text-caption">N</div>
@@ -48,6 +48,7 @@ export default {
     background-size: cover;
     border-radius: 50%;
     color: #ffffff;
+    display: inline-block;
     height: 18.75rem;
     width: 18.75rem;
     overflow: hidden;

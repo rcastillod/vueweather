@@ -14,7 +14,8 @@ export default new Vuex.Store({
       long: -71.2193256
     },
     apiUrl: 'https://api.openweathermap.org/data/2.5/',
-    apiKey: 'c2eec385a5f70fd8ddc37e0037683545'
+    //apiKey: 'c2eec385a5f70fd8ddc37e0037683545'
+    apiKey: 'bc1301b0b23fe6ef52032a7e5bb70820'
   },
   getters: {
   },
@@ -30,7 +31,7 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    async getWeatherByCoords({ commit }) {
+    async getWeatherByCoords({ commit, dispatch }) {
       try {
         let response = await fetch(`${this.state.apiUrl}weather?lat=${this.state.location.lat}&lon=${this.state.location.long}&appid=${this.state.apiKey}&units=metric`)
         if (!response.ok) throw ('Ocurrió un error al conectarse con la api')
@@ -42,6 +43,8 @@ export default new Vuex.Store({
         
         commit('ADD_DATA', data)
         commit('ADD_DATA_DETAIL', main)
+        dispatch('getWeatherForecast')
+
       }
       catch (error) {
         console.log(error)
@@ -49,11 +52,13 @@ export default new Vuex.Store({
     },
     async getWeatherForecast({ commit }) {
       try {
-        let response = await fetch(`${this.state.apiUrl}forecast?lat=${this.state.location.lat}&lon=${this.state.location.long}&cnt=4&appid=${this.state.apiKey}&units=metric`)
+        let response = await fetch(`${this.state.apiUrl}forecast/daily?lat=${this.state.location.lat}&lon=${this.state.location.long}&cnt=4&appid=${this.state.apiKey}&units=metric`)
         if ( !response.ok ) throw ('Ocurrió un error al conectarse con la api')
 
         let data = await response.json()
         let dataList = data.list
+
+        this.state.loader = false
 
         commit('ADD_DATA_FORECAST', dataList)
 

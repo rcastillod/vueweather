@@ -1,5 +1,6 @@
 <template>
-  <section class="home page">
+  <!-- <section class="home d-flex flex-column align-center"> -->
+  <section class="home d-flex flex-column overflow-x-hidden overflow-sm-x-auto">
     <weather-wrapper></weather-wrapper>
     <weather-forecast></weather-forecast>
   </section>
@@ -19,6 +20,5 @@ export default {
 </script>
 
 <style lang="scss">
-
 </style>
 
