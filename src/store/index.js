@@ -52,15 +52,16 @@ export default new Vuex.Store({
     },
     async getWeatherForecast({ commit }) {
       try {
-        let response = await fetch(`${this.state.apiUrl}forecast/daily?lat=${this.state.location.lat}&lon=${this.state.location.long}&cnt=4&appid=${this.state.apiKey}&units=metric`)
+        let response = await fetch(`${this.state.apiUrl}forecast/daily?lat=${this.state.location.lat}&lon=${this.state.location.long}&cnt=5&appid=${this.state.apiKey}&units=metric`)
         if ( !response.ok ) throw ('Ocurrió un error al conectarse con la api')
 
         let data = await response.json()
         let dataList = data.list
+        let dataListFromTomorrow = dataList.slice(1)
 
         this.state.loader = false
 
-        commit('ADD_DATA_FORECAST', dataList)
+        commit('ADD_DATA_FORECAST', dataListFromTomorrow)
 
       }
       catch(error) {

@@ -2,7 +2,7 @@
   <v-app>
     <navigation-menu></navigation-menu>
     <v-main>
-      <div class="main-wrapper" :style="getWeatherImage">
+      <div class="main-wrapper pt-16" :style="getWeatherImage">
         <v-container class="fill-height justify-sm-center">
           <router-view/>
         </v-container>
