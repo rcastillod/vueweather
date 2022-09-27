@@ -6,8 +6,7 @@
                 :key="index"
                 class="forecast-item">
                 <v-skeleton-loader
-                v-if="loader"
-                    v-bind="attrs"
+                    v-if="loader"
                     class="mx-auto"
                     min-height='147'
                     type="text, avatar, text, text"
